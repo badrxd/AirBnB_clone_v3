@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ Api v1 entrypoint for AirBnB v3 flask project"""
 from flask import Flask
 from models import storage, storage_t
