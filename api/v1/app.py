@@ -18,6 +18,7 @@ def teardown_request(error):
 
 
 if __name__ == '__main__':
+    """ start code just if tha name == main"""
     host = '0.0.0.0'
     port = 5000
     if storage_t == "db":

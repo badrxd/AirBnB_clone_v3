@@ -5,9 +5,11 @@ from models import storage
 
 @app_views.route("/status")
 def status():
+    """return json"""
     return {"status": "OK"}
 
 
 @app_views.route("/stats")
 def count():
+    """return stats counts"""
     return storage.count()
