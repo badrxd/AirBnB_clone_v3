@@ -6,6 +6,7 @@ from models import storage
 def status():
     return {"status": "OK"}
 
+
 @app_views.route("/stats")
 def count():
     return storage.count()

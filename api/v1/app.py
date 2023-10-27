@@ -1,9 +1,9 @@
 from flask import Flask
-app = Flask(__name__)
 from models import storage, storage_t
 from api.v1.views import app_views
 from os import getenv
 
+app = Flask(__name__)
 HBNB_API_HOST = getenv("HBNB_API_HOST")
 HBNB_API_PORT = getenv("HBNB_API_PORT")
 # print(HBNB_API_HOST,HBNB_API_PORT)
@@ -22,4 +22,4 @@ if __name__ == '__main__':
     if storage_t == "db":
         host = HBNB_API_HOST
         port = HBNB_API_PORT
-    app.run(host=host, port=port,threaded=True)
+    app.run(host=host, port=port, threaded=True)
