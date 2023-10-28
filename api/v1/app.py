@@ -6,6 +6,7 @@ from api.v1.views import app_views
 from os import getenv
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 HBNB_API_HOST = getenv("HBNB_API_HOST")
 HBNB_API_PORT = getenv("HBNB_API_PORT")
 app.register_blueprint(app_views)
