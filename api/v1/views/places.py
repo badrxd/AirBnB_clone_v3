@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Api v1 entrypoint place route"""
 from flask import abort, make_response, request
+import json
 from api.v1.views import app_views
 from models import storage
 from models.city import City
@@ -25,7 +26,7 @@ def places(city_id):
         if obj.get('city_id') == city_id:
             placesList.append(obj)
 
-    return placesList
+    return make_response(json.dumps(placesList), 200)
 
 
 @app_views.route("places/<place_id>", methods=["GET"])
