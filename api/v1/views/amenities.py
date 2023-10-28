@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Api v1 entrypoint amenity route"""
 from flask import abort, make_response, request
+import json
 from api.v1.views import app_views
 from models import storage
 from models.amenity import Amenity
@@ -15,7 +16,7 @@ def amenities():
     for value in amenities.values():
         obj = value.to_dict()
         amenitiesList.append(obj)
-    return amenitiesList
+    return make_response(json.dumps(amenitiesList), 200)
 
 
 @app_views.route("amenities/<amenity_id>", methods=["GET"])
