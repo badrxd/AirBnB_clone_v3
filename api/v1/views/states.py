@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Api v1 entrypoint state route"""
 from flask import abort, make_response, request
+import json
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -15,7 +16,7 @@ def states():
     for key in states:
         statesList.append(states[key].to_dict())
 
-    return statesList
+    return make_response(json.dumps(statesList), 200)
 
 
 @app_views.route("/states/<state_id>", methods=["GET"])
