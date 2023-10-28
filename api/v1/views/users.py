@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Api v1 entrypoint user route"""
 from flask import abort, make_response, request
-# import json
+import json
 from api.v1.views import app_views
 from models import storage
 from models.user import User
@@ -17,8 +17,7 @@ def users():
         obj = value.to_dict()
         usersList.append(obj)
 
-    # return usersList
-    return make_response(usersList, 200)
+    return make_response(json.dumps(usersList), 200)
 
 
 @app_views.route("users/<user_id>", methods=["GET"])
