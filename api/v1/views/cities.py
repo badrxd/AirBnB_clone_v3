@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Api v1 entrypoint city route"""
 from flask import abort, make_response, request
+import json
 from api.v1.views import app_views
 from models import storage
 from models.city import City
@@ -19,7 +20,7 @@ def cities(state_id):
         obj = value.to_dict()
         if obj.get('state_id') == state_id:
             citiesList.append(obj)
-    return citiesList
+    return make_response(json.dumps(citiesList), 200)
 
 
 @app_views.route("cities/<city_id>", methods=["GET"])
