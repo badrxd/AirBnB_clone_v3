@@ -79,3 +79,23 @@ def put_user(user_id):
             setattr(user, key, value)
     storage.save()
     return make_response(user.to_dict(), 200)
+
+
+@app_views.route("places/<place_id>", methods=["PUT"])
+def put_places(place_id):
+    """update place by id"""
+
+    place = storage.get(place, place_id)
+    if place is None:
+        abort(404)
+
+    data = request.get_json()
+    if data is None:
+        abort(400, description="Not a JSON")
+
+    IgnoreKeys = {'id', 'user_id', 'city_id', 'created_at', 'updated_at'}
+    for key, value in data.items():
+        if key not in IgnoreKeys:
+            setattr(place, key, value)
+    storage.save()
+    return make_response(place.to_dict(), 200)
