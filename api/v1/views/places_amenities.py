@@ -51,7 +51,7 @@ def delete_amenity_1(place_id, amenity_id):
             abort(404)
         place.amenities.remove(amenity)
     else:
-        if amenity not in place.amenity_ids:
+        if amenity_id not in place.amenity_ids:
             abort(404)
         place.amenity_ids.remove(amenity_id)
 
