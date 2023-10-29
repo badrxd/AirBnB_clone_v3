@@ -83,7 +83,7 @@ def post_review(place_id):
 
 @app_views.route("reviews/<review_id>", methods=["PUT"])
 def put_review(review_id):
-    """update city by id"""
+    """update review by id"""
 
     review = storage.get(Review, review_id)
     if review is None:
