@@ -35,29 +35,29 @@ def get_amenities(place_id):
     return make_response(json.dumps(amenitiesList), 200)
 
 
-@app_views.route("places/<place_id>/amenities/<amenity_id>"
-                 , methods=["DELETE"])
-def delete_amenity_1(place_id, amenity_id):
-    """delete amenity by id"""
-    checker = None
+# @app_views.route("places/<place_id>/amenities/<amenity_id>"
+#                  , methods=["DELETE"])
+# def delete_amenity_1(place_id, amenity_id):
+#     """delete amenity by id"""
+#     checker = None
 
-    place = storage.get(Place, place_id)
-    if place is None:
-        abort(404)
+#     place = storage.get(Place, place_id)
+#     if place is None:
+#         abort(404)
 
-    amenity = storage.get(Amenity, amenity_id)
-    if amenity is None:
-        abort(404)
+#     amenity = storage.get(Amenity, amenity_id)
+#     if amenity is None:
+#         abort(404)
 
-    for value in place.amenities:
-        if value.to_dict().get('id') == amenity_id:
-            checker = True
-            break
+#     for value in place.amenities:
+#         if value.to_dict().get('id') == amenity_id:
+#             checker = True
+#             break
 
-    if checker is None:
-        abort(404)
+#     if checker is None:
+#         abort(404)
 
-    amenity.delete()
-    storage.save()
+#     amenity.delete()
+#     storage.save()
 
-    return make_response({}, 200)
+#     return make_response({}, 200)
