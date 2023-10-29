@@ -35,7 +35,8 @@ def get_amenities(place_id):
     return make_response(json.dumps(amenitiesList), 200)
 
 
-@app_views.route("places/<place_id>/amenities/<amenity_id>", methods=["DELETE"])
+@app_views.route("places/<place_id>/amenities/<amenity_id>"
+                 , methods=["DELETE"])
 def delete_amenity_1(place_id, amenity_id):
     """delete amenity by id"""
     checker = None
