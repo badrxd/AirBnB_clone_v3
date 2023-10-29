@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/root/venv/bin/python3
+"""#!/usr/bin/python3"""
 """ console """
 
 import cmd

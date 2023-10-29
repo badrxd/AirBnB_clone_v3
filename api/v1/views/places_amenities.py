@@ -23,7 +23,7 @@ def get_amenities(place_id):
     if storage_t == 'db':
         amenities = place.amenities
 
-        for value in amenities.values():
+        for value in amenities:
             obj = value.to_dict()
             amenitiesList.append(obj)
     else:
@@ -31,4 +31,5 @@ def get_amenities(place_id):
             amenity = storage.get(Amenity, id)
             obj = amenity.to_dict()
             amenitiesList.append(obj)
+
     return make_response(json.dumps(amenitiesList), 200)
