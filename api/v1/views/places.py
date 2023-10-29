@@ -81,10 +81,10 @@ def post_place(city_id):
 
 
 @app_views.route("places/<place_id>", methods=["PUT"])
-def put_places(place_id):
+def put_place(place_id):
     """update place by id"""
 
-    place = storage.get(place, place_id)
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
 
