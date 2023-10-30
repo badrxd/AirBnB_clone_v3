@@ -5,6 +5,7 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 
 from datetime import datetime
 import inspect
+from models import storage
 import models
 from models.engine import db_storage
 from models.amenity import Amenity
@@ -67,6 +68,28 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    def test_obj_getter(self):
+        """Test the get for db storage"""
+        amenity = Amenity(name='WIFI')
+        amenity.save()
+        get_amenity = storage.get(Amenity, amenity.id)
+        self.assertEqual(amenity, get_amenity)
+
+    def test_file_counter(self):
+        """Test the count of db storage"""
+        datajson = {"name": "badr xd"}
+        state = State(**datajson)
+        storage.new(state)
+        datajson = {"name": "el ksiba", "state_id": state.id}
+        city_info = City(**datajson)
+        storage.new(city_info)
+        storage.save()
+        resp = storage.count()
+        self.assertEqual(
+            len(storage.all()),
+            resp
+        )
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
@@ -87,18 +110,3 @@ class TestFileStorage(unittest.TestCase):
         # @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
         def test_save(self):
             """Test that save properly saves objects to file.json"""
-
-        def test_file_counter(self):
-            """Test the count of db storage"""
-            datajson = {"name": "badr xd"}
-            state = State(**datajson)
-            storage.new(state)
-            datajson = {"name": "el ksiba", "state_id": state.id}
-            city_info = City(**datajson)
-            storage.new(city_info)
-            storage.save()
-            resp = storage.count()
-            self.assertEqual(
-                len(storage.all()),
-                resp
-            )
