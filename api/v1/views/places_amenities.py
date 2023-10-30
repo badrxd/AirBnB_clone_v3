@@ -7,8 +7,6 @@ from models import storage, storage_t
 from models.place import Place
 from models.amenity import Amenity
 
-# storage_t = getenv("HBNB_TYPE_STORAGE")
-
 
 @app_views.route("places/<place_id>/amenities", methods=["GET"])
 def get_amenities(place_id):
@@ -57,3 +55,28 @@ def delete_amenity_1(place_id, amenity_id):
 
     storage.save()
     return make_response({}, 200)
+
+
+@app_views.route("places/<place_id>/amenities/<amenity_id>",
+                 methods=["POST"])
+def post_amenity_1(place_id, amenity_id):
+    """add amenity to place"""
+
+    place = storage.get(Place, place_id)
+    amenity = storage.get(Amenity, amenity_id)
+
+    if amenity is None or place is None:
+        abort(404)
+
+    if storage_t == 'db':
+        if amenity in place.amenities:
+            return make_response(amenity.to_dict(), 200)
+        place.amenities.append(amenity)
+
+    else:
+        if amenity_id in place.amenity_ids:
+            return make_response(amenity.to_dict(), 200)
+        place.amenity_ids.append(amenity_id)
+
+    storage.save()
+    return make_response(amenity.to_dict(), 201)
