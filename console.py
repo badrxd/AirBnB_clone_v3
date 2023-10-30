@@ -1,5 +1,4 @@
-#!/root/venv/bin/python3
-"""#!/usr/bin/python3"""
+#!/usr/bin/python3
 """ console """
 
 import cmd
@@ -160,6 +159,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
