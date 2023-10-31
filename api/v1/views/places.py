@@ -120,17 +120,19 @@ def post_places_search():
         if 'states' in data.keys():
             for id in data.get('states'):
                 state = storage.get(State, id)
-                for city in state.cities:
-                    for place in city.places:
-                        if place not in placesList:
-                            placesList.append(place)
+                if state != None:
+                    for city in state.cities:
+                        for place in city.places:
+                            if place not in placesList:
+                                placesList.append(place)
 
         if 'cities' in data.keys():
             for id in data.get('cities'):
                 city = storage.get(City, id)
-                for place in city.places:
-                    if place not in placesList:
-                        placesList.append(place)
+                if city != None:
+                    for place in city.places:
+                        if place not in placesList:
+                            placesList.append(place)
 
     if 'amenities' in data.keys() and data.get('amenities') != []:
         for place in placesList:
