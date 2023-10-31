@@ -111,7 +111,6 @@ def post_places_search():
 
     if data is None:
         abort(400, description="Not a JSON")
-    print(data.keys())
     if len(data) == 0 or (len(data.get('states')) == 0 and
                           len(data.get('cities')) == 0):
         places = storage.all(Place)
