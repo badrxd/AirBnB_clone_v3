@@ -7,6 +7,7 @@ from models import storage
 from models.city import City
 from models.place import Place
 from models.user import User
+from models.state import State
 
 
 @app_views.route("cities/<city_id>/places", methods=["GET"])
@@ -98,3 +99,53 @@ def put_place(place_id):
             setattr(place, key, value)
     storage.save()
     return make_response(place.to_dict(), 200)
+
+
+@app_views.route("places_search", methods=["POST"])
+def post_places_search():
+    """search for all wanted places"""
+    placesList = []
+    filterList = []
+    places = {}
+    data = request.get_json()
+
+    if data is None:
+        abort(400, description="Not a JSON")
+    print(data.keys())
+    if len(data) == 0 or (len(data.get('states')) == 0 and
+                          len(data.get('cities')) == 0):
+        places = storage.all(Place)
+        placesList = list(places.values())
+
+    else:
+        if 'states' in data.keys():
+            for id in data.get('states'):
+                state = storage.get(State, id)
+                for city in state.cities:
+                    for place in city.places:
+                        if place not in placesList:
+                            placesList.append(place)
+
+        if 'cities' in data.keys():
+            for id in data.get('cities'):
+                city = storage.get(City, id)
+                for place in city.places:
+                    if place not in placesList:
+                        placesList.append(place)
+
+    if 'amenities' in data.keys() and data.get('amenities') != []:
+        for place in placesList:
+            for amenity in place.amenities:
+                if amenity.id in data['amenities']:
+                    obj = place.to_dict()
+                    obj.pop('amenities', None)
+                    filterList.append(obj)
+                    break
+    else:
+        for place in placesList:
+            obj = place.to_dict()
+            if obj.get('amenities'):
+                obj.pop('amenities', None)
+            filterList.append(obj)
+
+    return make_response(filterList, 200)
