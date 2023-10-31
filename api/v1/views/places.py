@@ -137,19 +137,14 @@ def post_places_search():
             for amenity in place.amenities:
                 if amenity.id in data['amenities']:
                     obj = place.to_dict()
-                    ls = []
-                    for amenity in obj["amenities"]:
-                        ls.append(amenity.to_dict())
-                    obj['amenities'] = ls
+                    obj.pop('amenities', None)
                     filterList.append(obj)
                     break
     else:
         for place in placesList:
             obj = place.to_dict()
             if obj.get('amenities'):
-                ls = []
-                for amenity in obj["amenities"]:
-                    ls.append(amenity.to_dict())
-                obj['amenities'] = ls
+                obj.pop('amenities', None)
             filterList.append(obj)
+
     return make_response(json.dumps(filterList), 200)
