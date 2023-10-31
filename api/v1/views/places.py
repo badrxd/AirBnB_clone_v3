@@ -145,4 +145,4 @@ def post_places_search():
                 obj.pop('amenities', None)
             filterList.append(obj)
 
-    return make_response(filterList, 200)
+    return make_response(json.dumps(filterList), 200)
